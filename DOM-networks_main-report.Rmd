@@ -1,0 +1,75 @@
+---
+title: "Information Disclosure in Criminal Networks"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("DOM-networks_primary-analysis.R")
+source("DOM-networks_exploratory-analysis.R")
+
+```
+
+# Descriptive Analysis
+
+## Rates of Disclosure
+
+```{r, echo = FALSE}
+table(info_disc_long$info_type, info_disc_long$disclosure)
+```
+
+```{r, echo = FALSE}
+table(info_disc_long$info_type, info_disc_long$disclosure)/(table(info_disc_long$info_type, info_disc_long$disclosure) %>% rowSums())
+```
+## Participants' Tendencies to Disclose Information
+
+```{r}
+sub_disclosure_hist
+```
+
+# Primary Analysis
+
+## Likelihood Ratio Test
+
+```{r}
+lrt
+```
+
+
+## Retained Model
+
+```{r}
+summary(model_5)
+```
+
+```{r}
+emmeans::emmeans(model_5, specs = c("risk", "benefit"), type = "response")
+```
+
+# Exploratory Analyses
+
+## Accounting for Group Affiliation
+
+```{r}
+lrt_IOS
+```
+
+```{r}
+summary(model_5_IOS)
+```
+
+```{r}
+emmeans::emmeans(model_5_IOS, specs = c("risk", "benefit"), type = "response")
+```
+
+## Models Without the Interaction between Risk and Benefit
+
+```{r}
+lrt_noint
+```
+
+```{r}
+summary(model_4_noint)
+```
+
